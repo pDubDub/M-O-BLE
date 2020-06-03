@@ -7,23 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D16F50A2482D57100F9445A /* simpleBeep2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0D16F5092482D57100F9445A /* simpleBeep2.wav */; };
+		0D3340F9247D928B00CB7469 /* there_done.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0D3340F7247D928A00CB7469 /* there_done.wav */; };
+		0D3340FA247D928B00CB7469 /* yip_peek.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0D3340F8247D928A00CB7469 /* yip_peek.wav */; };
+		0D3340FC247D962800CB7469 /* simpleBeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0D3340FB247D962800CB7469 /* simpleBeep.wav */; };
 		0DC5DDF52474CD21002F8696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5DDF42474CD21002F8696 /* AppDelegate.swift */; };
 		0DC5DDF72474CD21002F8696 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5DDF62474CD21002F8696 /* SceneDelegate.swift */; };
-		0DC5DDF92474CD21002F8696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5DDF82474CD21002F8696 /* ViewController.swift */; };
+		0DC5DDF92474CD21002F8696 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5DDF82474CD21002F8696 /* MainViewController.swift */; };
 		0DC5DDFC2474CD21002F8696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DC5DDFA2474CD21002F8696 /* Main.storyboard */; };
 		0DC5DDFE2474CD22002F8696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DC5DDFD2474CD22002F8696 /* Assets.xcassets */; };
 		0DC5DE012474CD22002F8696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DC5DDFF2474CD22002F8696 /* LaunchScreen.storyboard */; };
+		0DC5DE0A2474CDA0002F8696 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC5DE092474CDA0002F8696 /* CoreBluetooth.framework */; };
+		0DC5DE0C2474CDE6002F8696 /* ScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */; };
+		0DDFD4962485B4BC00468D12 /* Handel Gothic Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D16F5092482D57100F9445A /* simpleBeep2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = simpleBeep2.wav; sourceTree = "<group>"; };
+		0D3340F7247D928A00CB7469 /* there_done.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = there_done.wav; sourceTree = "<group>"; };
+		0D3340F8247D928A00CB7469 /* yip_peek.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = yip_peek.wav; sourceTree = "<group>"; };
+		0D3340FB247D962800CB7469 /* simpleBeep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = simpleBeep.wav; sourceTree = "<group>"; };
 		0DC5DDF12474CD21002F8696 /* M-O BLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "M-O BLE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC5DDF42474CD21002F8696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DC5DDF62474CD21002F8696 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0DC5DDF82474CD21002F8696 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0DC5DDF82474CD21002F8696 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0DC5DDFB2474CD21002F8696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0DC5DDFD2474CD22002F8696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DC5DE002474CD22002F8696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0DC5DE022474CD22002F8696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DC5DE092474CDA0002F8696 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
+		0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handel Gothic Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +45,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DC5DE0A2474CDA0002F8696 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D3340F6247D925400CB7469 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				0D3340FB247D962800CB7469 /* simpleBeep.wav */,
+				0D16F5092482D57100F9445A /* simpleBeep2.wav */,
+				0D3340F7247D928A00CB7469 /* there_done.wav */,
+				0D3340F8247D928A00CB7469 /* yip_peek.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		0DC5DDE82474CD21002F8696 = {
 			isa = PBXGroup;
 			children = (
 				0DC5DDF32474CD21002F8696 /* M-O BLE */,
 				0DC5DDF22474CD21002F8696 /* Products */,
+				0DC5DE082474CD9F002F8696 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,13 +85,32 @@
 			children = (
 				0DC5DDF42474CD21002F8696 /* AppDelegate.swift */,
 				0DC5DDF62474CD21002F8696 /* SceneDelegate.swift */,
-				0DC5DDF82474CD21002F8696 /* ViewController.swift */,
+				0DC5DDF82474CD21002F8696 /* MainViewController.swift */,
+				0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */,
 				0DC5DDFA2474CD21002F8696 /* Main.storyboard */,
 				0DC5DDFD2474CD22002F8696 /* Assets.xcassets */,
+				0D3340F6247D925400CB7469 /* Sounds */,
+				0DDFD4942485B48900468D12 /* Fonts */,
 				0DC5DDFF2474CD22002F8696 /* LaunchScreen.storyboard */,
 				0DC5DE022474CD22002F8696 /* Info.plist */,
 			);
 			path = "M-O BLE";
+			sourceTree = "<group>";
+		};
+		0DC5DE082474CD9F002F8696 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0DC5DE092474CDA0002F8696 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0DDFD4942485B48900468D12 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +171,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D3340FC247D962800CB7469 /* simpleBeep.wav in Resources */,
+				0DDFD4962485B4BC00468D12 /* Handel Gothic Regular.ttf in Resources */,
+				0D16F50A2482D57100F9445A /* simpleBeep2.wav in Resources */,
 				0DC5DE012474CD22002F8696 /* LaunchScreen.storyboard in Resources */,
 				0DC5DDFE2474CD22002F8696 /* Assets.xcassets in Resources */,
+				0D3340FA247D928B00CB7469 /* yip_peek.wav in Resources */,
 				0DC5DDFC2474CD21002F8696 /* Main.storyboard in Resources */,
+				0D3340F9247D928B00CB7469 /* there_done.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +189,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DC5DDF92474CD21002F8696 /* ViewController.swift in Sources */,
+				0DC5DE0C2474CDE6002F8696 /* ScanTableViewController.swift in Sources */,
+				0DC5DDF92474CD21002F8696 /* MainViewController.swift in Sources */,
 				0DC5DDF52474CD21002F8696 /* AppDelegate.swift in Sources */,
 				0DC5DDF72474CD21002F8696 /* SceneDelegate.swift in Sources */,
 			);
@@ -216,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
