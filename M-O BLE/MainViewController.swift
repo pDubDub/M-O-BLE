@@ -105,7 +105,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     }
 
-    // MARK: Button Methods
+    // MARK: UI Methods
     @objc func scanButtonPressed() {
         performSegue(withIdentifier: "scan-segue", sender: nil)
     }
@@ -173,11 +173,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
 
     // MARK: - CBCentralManagerDelegate Methods
+
     // called when peripheral is requested to be disconnected
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         mainPeripheral = nil
         customiseNavigationBar()
         print("Disconnected from " + peripheral.name!)
+        recievedMessageText.text = "*not connected*"
     }
 
     // not using here, but required
@@ -216,9 +218,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
         //get device name
         if (service.uuid.uuidString == "1800") {
-
             for characteristic in service.characteristics! {
-
                 if (characteristic.uuid.uuidString == "2A00") {
                     peripheral.readValue(for: characteristic)
                     print("Found Device Name Characteristic")
@@ -227,9 +227,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         }
 
         if (service.uuid.uuidString == "180A") {
-
             for characteristic in service.characteristics! {
-
                 if (characteristic.uuid.uuidString == "2A29") {
                     peripheral.readValue(for: characteristic)
                     print("Found a Device Manufacturer Name Characteristic")
@@ -241,9 +239,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         }
 
         if (service.uuid.uuidString == BLEService) {
-
             for characteristic in service.characteristics! {
-
                 if (characteristic.uuid.uuidString == BLECharacteristic) {
                     //we'll save the reference, we need it to write data
                     mainCharacteristic = characteristic
@@ -253,6 +249,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     print("Found AT-09 Data Characteristic")
 
                     sendBTLEDataMessageToArduino(message: "iOSOK")
+                    print("Send \"iosOK\" to Arduino")
                     // let's send a 'connected' message to Arduino, and have Arduino send a 'connection aknowledged' message back to screen
                     // Previously had this in the Else statement in the customiseNavigationBar() func above, but it crashed the app when there.
                 }
@@ -290,15 +287,25 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     func reactToBTMessage(message: String) {
         if (message.starts(with: "isAsleep")) {
-            print("Mo says \"isAsleep\"")
-            recievedMessageText.text = "Mo says he's sleeping"
+            print("MO says \"isAsleep\"")
+            recievedMessageText.text = "MO says he's sleeping"
             sleepSwitch.isOn = false
         } else if (message.starts(with: "isAwake")) {
-            print("Mo says \"isAwake\"")
-            recievedMessageText.text = "Mo says he's awake"
+            print("MO says \"isAwake\"")
+            recievedMessageText.text = "MO says he's awake"
             sleepSwitch.isOn = true
-        } else {
-            print("Received BT message: \(message)")
+        } else if (message.starts(with: "isReady")) {                   // this is my model for new message format
+            if (message.hasSuffix("0")) {
+                // react to !isReady
+            } else {
+                // react to isReady
+                print("MO says \"isReady\"")
+                recievedMessageText.text = "Microbe Obliterator Ready"
+            }
+        }
+
+        else {
+            print("Bluetooth connections message: \(message)")
         }
     }
 
