@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="EurostileExtended.ttf">
+            <string>EurostileExtended-Roman</string>
+        </array>
         <array key="Handel Gothic Regular.ttf">
             <string>HandelGothic</string>
         </array>
@@ -21,18 +24,125 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="m-o-logotype" translatesAutoresizingMaskIntoConstraints="NO" id="IW7-b6-oKr">
+                                <rect key="frame" x="39" y="44" width="242" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="drO-WD-qNE"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="47" translatesAutoresizingMaskIntoConstraints="NO" id="C1z-zR-wgo">
+                                <rect key="frame" x="18" y="134.5" width="284" height="299"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-Th-DY3">
+                                        <rect key="frame" x="0.0" y="0.0" width="284" height="31"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AGt-Pc-bta">
+                                                <rect key="frame" x="0.0" y="0.0" width="284" height="31"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLEEP " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyd-Jc-5aE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="31"/>
+                                                        <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9xj-AQ-DaZ">
+                                                        <rect key="frame" x="180.5" y="0.0" width="51" height="31"/>
+                                                        <connections>
+                                                            <action selector="switchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Khu-1S-gch"/>
+                                                        </connections>
+                                                    </switch>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="READY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bph-GR-HCG">
+                                                        <rect key="frame" x="237.5" y="0.0" width="46.5" height="31"/>
+                                                        <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MRG-lp-xWu">
+                                        <rect key="frame" x="0.0" y="78" width="284" height="144"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Elk-aV-4MG">
+                                                <rect key="frame" x="0.0" y="0.0" width="284" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="DPk-HY-dbP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="16"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
+                                                <state key="normal" title="Send &quot;Hello&quot;"/>
+                                                <connections>
+                                                    <action selector="helloButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kjE-as-ytI"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omf-4Q-FZ9">
+                                                <rect key="frame" x="0.0" y="38" width="284" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="bz2-47-36X"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="16"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
+                                                <state key="normal" title="&quot;M-O&quot;"/>
+                                                <connections>
+                                                    <action selector="nameButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JhH-Kb-rvE"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXu-l5-EdW">
+                                                <rect key="frame" x="0.0" y="76" width="284" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="s73-Tp-eUi"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="16"/>
+                                                <state key="normal" title="&quot;Yip&quot;"/>
+                                                <connections>
+                                                    <action selector="yipButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3zO-fT-V4e"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHD-KD-JJv">
+                                                <rect key="frame" x="0.0" y="114" width="284" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="nYX-7k-Lo3"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="16"/>
+                                                <state key="normal" title="Speak"/>
+                                                <connections>
+                                                    <action selector="speakButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZF4-WC-cGp"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="90" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="NUe-FN-9Be">
+                                        <rect key="frame" x="-2" y="269" width="288" height="31"/>
+                                        <connections>
+                                            <action selector="sliderOneChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="4EK-XV-vUy"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="NUe-FN-9Be" firstAttribute="centerX" secondItem="C1z-zR-wgo" secondAttribute="centerX" id="Tof-wf-HIr"/>
+                                    <constraint firstItem="MRG-lp-xWu" firstAttribute="centerX" secondItem="C1z-zR-wgo" secondAttribute="centerX" id="bRI-fG-yyf"/>
+                                    <constraint firstItem="ue9-Th-DY3" firstAttribute="centerX" secondItem="C1z-zR-wgo" secondAttribute="centerX" id="ntc-gz-Fof"/>
+                                </constraints>
+                            </stackView>
+                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BnL_mono" translatesAutoresizingMaskIntoConstraints="NO" id="0BC-B9-KpB">
+                                <rect key="frame" x="137" y="464" width="48" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="5VL-r8-Sg6"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqP-1W-rOr">
-                                <rect key="frame" x="0.0" y="491" width="320" height="77"/>
+                                <rect key="frame" x="0.0" y="500" width="320" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Received:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbG-zc-tBL">
-                                        <rect key="frame" x="86" y="8" width="148" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="66.5" y="8" width="187" height="16"/>
+                                        <fontDescription key="fontDescription" name="EurostileExtended-Roman" family="Eurostile Extended" pointSize="16"/>
                                         <color key="textColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfY-k9-NDG">
-                                        <rect key="frame" x="153.5" y="36.5" width="13.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="151" y="32" width="18.5" height="16"/>
+                                        <fontDescription key="fontDescription" name="EurostileExtended-Roman" family="Eurostile Extended" pointSize="16"/>
                                         <color key="textColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -46,94 +156,6 @@
                                     <constraint firstItem="BfY-k9-NDG" firstAttribute="top" secondItem="GbG-zc-tBL" secondAttribute="bottom" constant="8" id="r6K-fy-7A4"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="m-o-logotype" translatesAutoresizingMaskIntoConstraints="NO" id="IW7-b6-oKr">
-                                <rect key="frame" x="39" y="44" width="242" height="53"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="53" id="drO-WD-qNE"/>
-                                </constraints>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BnL_mono" translatesAutoresizingMaskIntoConstraints="NO" id="0BC-B9-KpB">
-                                <rect key="frame" x="137" y="455" width="48" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="5VL-r8-Sg6"/>
-                                </constraints>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="47" translatesAutoresizingMaskIntoConstraints="NO" id="C1z-zR-wgo">
-                                <rect key="frame" x="84" y="192" width="152" height="184"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-Th-DY3">
-                                        <rect key="frame" x="0.0" y="0.0" width="152" height="31"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AGt-Pc-bta">
-                                                <rect key="frame" x="0.0" y="0.0" width="152" height="31"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLEEP " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyd-Jc-5aE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="44" height="31"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9xj-AQ-DaZ">
-                                                        <rect key="frame" x="52" y="0.0" width="51" height="31"/>
-                                                        <connections>
-                                                            <action selector="switchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Khu-1S-gch"/>
-                                                        </connections>
-                                                    </switch>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="READY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bph-GR-HCG">
-                                                        <rect key="frame" x="109" y="0.0" width="43" height="31"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MRG-lp-xWu">
-                                        <rect key="frame" x="0.0" y="78" width="152" height="106"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Elk-aV-4MG">
-                                                <rect key="frame" x="0.0" y="0.0" width="152" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="DPk-HY-dbP"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="16"/>
-                                                <inset key="contentEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
-                                                <state key="normal" title="Send &quot;Hello&quot;"/>
-                                                <connections>
-                                                    <action selector="helloButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kjE-as-ytI"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omf-4Q-FZ9">
-                                                <rect key="frame" x="0.0" y="38" width="152" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="bz2-47-36X"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="16"/>
-                                                <inset key="contentEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
-                                                <state key="normal" title="&quot;M-O&quot;"/>
-                                                <connections>
-                                                    <action selector="nameButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JhH-Kb-rvE"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXu-l5-EdW">
-                                                <rect key="frame" x="0.0" y="76" width="152" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="s73-Tp-eUi"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="16"/>
-                                                <state key="normal" title="&quot;Yip&quot;"/>
-                                                <connections>
-                                                    <action selector="yipButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3zO-fT-V4e"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="MRG-lp-xWu" firstAttribute="centerX" secondItem="C1z-zR-wgo" secondAttribute="centerX" id="bRI-fG-yyf"/>
-                                </constraints>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -159,6 +181,8 @@
                         <outlet property="recievedMessageText" destination="BfY-k9-NDG" id="Qfk-eA-v5y"/>
                         <outlet property="sleepLabel" destination="fyd-Jc-5aE" id="OMH-Qx-daa"/>
                         <outlet property="sleepSwitch" destination="9xj-AQ-DaZ" id="QWL-iI-BDg"/>
+                        <outlet property="sliderOne" destination="NUe-FN-9Be" id="QRR-Tp-EZF"/>
+                        <outlet property="speakButton" destination="PHD-KD-JJv" id="PT5-3E-XcF"/>
                         <outlet property="yipButton" destination="CXu-l5-EdW" id="fef-TZ-MOR"/>
                         <segue destination="BRN-CI-qD0" kind="show" identifier="scan-segue" id="uS4-32-PO2"/>
                     </connections>

@@ -18,6 +18,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     var isConnected:Bool = false
     var stringForArduino:String = ""
+    var timerDone:Bool = true
+    var previousSliderOneSent:Int = 0
 
 //    let BLEService = "DFB0"
 //    let BLECharacteristic = "DFB1"
@@ -34,6 +36,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @IBOutlet weak var helloButton: UIButton!
     @IBOutlet weak var moButton: UIButton!
     @IBOutlet weak var yipButton: UIButton!
+    @IBOutlet weak var speakButton: UIButton!
+    @IBOutlet weak var sliderOne: UISlider!
 
     @IBOutlet weak var recievedMessageText: UILabel!
 
@@ -57,6 +61,10 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         yipButton.layer.borderWidth = 1
         yipButton.layer.cornerRadius = 10
         yipButton.layer.borderColor = UIColor.gray.cgColor
+
+        speakButton.layer.borderWidth = 1
+        speakButton.layer.cornerRadius = 10
+        speakButton.layer.borderColor = UIColor.gray.cgColor
     }
 
     func customiseNavigationBar () {
@@ -70,6 +78,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             helloButton.isEnabled = false
             moButton.isEnabled = false
             yipButton.isEnabled = false
+            speakButton.isEnabled = false
             rightButton.setTitle("Scan", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 60, height: 30))
@@ -80,6 +89,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             helloButton.isEnabled = true
             moButton.isEnabled = true
             yipButton.isEnabled = true
+            speakButton.isEnabled = true
             rightButton.setTitle("Disconnect", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30))
@@ -120,9 +130,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         if (sleepSwitch.isOn) {
 //            stringForArduino = "wake"
             sendBTLEDataMessageToArduino(message: "wake")
+            sleepLabel.textColor = UIColor.lightGray
+            readyLabel.textColor = UIColor.black
         } else {
 //            stringForArduino = "sleep"
             sendBTLEDataMessageToArduino(message: "sleep")
+            sleepLabel.textColor = UIColor.black
+            readyLabel.textColor = UIColor.lightGray
         }
 //        sendBTLEDataMessageToArduino()
     }
@@ -149,6 +163,45 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         sendBTLEDataMessageToArduino(message: "Yip")
     }
 
+    @IBAction func speakButtonPressed(_ sender: Any) {
+        sendBTLEDataMessageToArduino(message: "speak")
+    }
+    @IBAction func sliderOneChanged(_ sender: Any) {
+        // need to 1 - check if delay has passed since the last send
+        //          2 - make sure sliderOne.value is different than the previousSliderOneSent
+        //          3 - confirm that value to send is within the 0 to 180 range
+        // DO we also need to check that BT connection is up?
+
+        // TODO - I think should redo this logic. if timerDone is true, it should send. Else it should delay, but then still send.
+        //          Right now, if timeDone is false, it dumps a sliderOneChanged value.
+
+        // I think this would fix a state where it sometimes missees the last 0 or 180 command on a swing.
+
+        let sliderInt:Int = Int(sliderOne.value)
+        if (sliderInt != previousSliderOneSent) && (sliderInt >= 0) && (sliderInt <= 180){
+//            if !timerDone {
+//                print("false")
+//                _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {_ in self.timerDone = true})
+                                                                    // this needs to call function
+//            } else {        // time IS done,
+//              call same function
+//            }
+            // make all of the stuff below the function
+            print("Slider changed to \(sliderInt)")
+            let stringForAruino = "S1:\(sliderInt) "
+            sendBTLEDataMessageToArduino(message: stringForAruino)
+            previousSliderOneSent = sliderInt
+            timerDone = false
+            _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: {_ in self.timerDone = true})
+        }
+        // TimeInterval was originally 0.1, but Arduno would often read 3 "S1:" commands in a single serialRead()
+        //   Even at 0.3, it often still gets 2 commands on a single serialRead()
+
+        // How do we deal with moving the slider if MO is asleep? If he is in some state that prevents the servo from moving, do we disable the slider or
+        //   send updates on servo position from Arduino to iOS? What is Arduino logic shortens possible servo range? In both cases, I guess this means
+        //   Arduino has to send position back to slider.
+    }
+    
     // these commands used to live in original helloButtonPressed() IB Action.
     // moved out so future buttons could all call the same 'send' function
     func sendBTLEDataMessageToArduino() {
@@ -286,16 +339,25 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
 
     func reactToBTMessage(message: String) {
-        if (message.starts(with: "isAsleep")) {
-            print("MO says \"isAsleep\"")
-            recievedMessageText.text = "MO says he's sleeping"
-            sleepSwitch.isOn = false
-        } else if (message.starts(with: "isAwake")) {
-            print("MO says \"isAwake\"")
-            recievedMessageText.text = "MO says he's awake"
-            sleepSwitch.isOn = true
-        } else if (message.starts(with: "isReady")) {                   // this is my model for new message format
-            if (message.hasSuffix("0")) {
+        print(message)
+        if (message.starts(with: "awake")) {
+            if (message.contains("0")) {
+                // react to !isAwake
+                print("MO says \"not isAwake\"")
+                recievedMessageText.text = "MO says he's sleeping"
+                sleepSwitch.isOn = false
+                sleepLabel.textColor = UIColor.black
+                readyLabel.textColor = UIColor.lightGray
+            } else {
+                // react to isAwake
+                print("MO says \"isAwake\"")
+                recievedMessageText.text = "MO says he's awake"
+                sleepSwitch.isOn = true
+                sleepLabel.textColor = UIColor.lightGray
+                readyLabel.textColor = UIColor.black
+            }
+        } else if (message.starts(with: "ready")) {                   // this is my model for new message format
+            if (message.contains("0")) {
                 // react to !isReady
             } else {
                 // react to isReady
@@ -313,10 +375,6 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     func playInAppSound(number: Int) {
 
-        // TODO - would be good to add a simple error sound to go with 'haven't discovered device yet' putton push
-
-        // or perhaps better, disable the send button if 'haven't discovered device yet'
-
         if(number == 1) {
             guard let url = Bundle.main.url(forResource: "simpleBeep", withExtension: "wav") else {
                  print("error to get the audio file")
@@ -330,8 +388,6 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             }
             player = AVPlayer(url: url)
         }
-
-        //player = AVPlayer(url: url)
 
         player?.play()
     }

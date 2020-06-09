@@ -23,6 +23,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Handel Gothic Regular.ttf</string>
+		<string>EurostileExtended.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

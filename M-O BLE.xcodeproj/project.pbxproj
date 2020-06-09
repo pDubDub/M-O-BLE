@@ -19,6 +19,7 @@
 		0DC5DE012474CD22002F8696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DC5DDFF2474CD22002F8696 /* LaunchScreen.storyboard */; };
 		0DC5DE0A2474CDA0002F8696 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC5DE092474CDA0002F8696 /* CoreBluetooth.framework */; };
 		0DC5DE0C2474CDE6002F8696 /* ScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */; };
+		0DC6DFE4249048F3001BF092 /* EurostileExtended.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DC6DFE3249048F3001BF092 /* EurostileExtended.ttf */; };
 		0DDFD4962485B4BC00468D12 /* Handel Gothic Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		0DC5DE022474CD22002F8696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DC5DE092474CDA0002F8696 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
+		0DC6DFE3249048F3001BF092 /* EurostileExtended.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EurostileExtended.ttf; sourceTree = "<group>"; };
 		0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handel Gothic Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 		0DDFD4942485B48900468D12 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				0DC6DFE3249048F3001BF092 /* EurostileExtended.ttf */,
 				0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */,
 			);
 			path = Fonts;
@@ -175,6 +178,7 @@
 				0DDFD4962485B4BC00468D12 /* Handel Gothic Regular.ttf in Resources */,
 				0D16F50A2482D57100F9445A /* simpleBeep2.wav in Resources */,
 				0DC5DE012474CD22002F8696 /* LaunchScreen.storyboard in Resources */,
+				0DC6DFE4249048F3001BF092 /* EurostileExtended.ttf in Resources */,
 				0DC5DDFE2474CD22002F8696 /* Assets.xcassets in Resources */,
 				0D3340FA247D928B00CB7469 /* yip_peek.wav in Resources */,
 				0DC5DDFC2474CD21002F8696 /* Main.storyboard in Resources */,
