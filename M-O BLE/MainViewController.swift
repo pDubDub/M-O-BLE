@@ -32,15 +32,24 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     // outlets for accessing UI elements
     @IBOutlet weak var moIcon: UIImageView!
+    @IBOutlet weak var helloButton: UIButton!
     @IBOutlet weak var sleepLabel: UILabel!
     @IBOutlet weak var sleepSwitch: UISwitch!
     @IBOutlet weak var readyLabel: UILabel!
 
-    @IBOutlet weak var helloButton: UIButton!
     @IBOutlet weak var moButton: UIButton!
     @IBOutlet weak var yipButton: UIButton!
+    @IBOutlet weak var huhButton: UIButton!
     @IBOutlet weak var speakButton: UIButton!
+
+    @IBOutlet weak var dirtScanButton: UIButton!
+    @IBOutlet weak var contaminantButton: UIButton!
+    @IBOutlet weak var sirenLabel: UILabel!
+    @IBOutlet weak var sirenSwitch: UISwitch!
+    @IBOutlet weak var allCleanButton: UIButton!
+
     @IBOutlet weak var sliderOne: UISlider!
+    @IBOutlet weak var sliderTwo: UISlider!
 
     @IBOutlet weak var recievedMessageText: UILabel!
 
@@ -66,9 +75,25 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         yipButton.layer.cornerRadius = 10
         yipButton.layer.borderColor = UIColor.gray.cgColor
 
+        huhButton.layer.borderWidth = 1
+        huhButton.layer.cornerRadius = 10
+        huhButton.layer.borderColor = UIColor.gray.cgColor
+
         speakButton.layer.borderWidth = 1
         speakButton.layer.cornerRadius = 10
         speakButton.layer.borderColor = UIColor.gray.cgColor
+
+        dirtScanButton.layer.borderWidth = 1
+        dirtScanButton.layer.cornerRadius = 10
+        dirtScanButton.layer.borderColor = UIColor.gray.cgColor
+
+        contaminantButton.layer.borderWidth = 1
+        contaminantButton.layer.cornerRadius = 10
+        contaminantButton.layer.borderColor = UIColor.gray.cgColor
+
+        allCleanButton.layer.borderWidth = 1
+        allCleanButton.layer.cornerRadius = 10
+        allCleanButton.layer.borderColor = UIColor.gray.cgColor
     }
 
     func customiseNavigationBar () {
@@ -80,24 +105,18 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
         if (mainPeripheral == nil) {
             // This means we're not connected
-            isConnected = false
-            sleepSwitch.isEnabled = false
-            helloButton.isEnabled = false               // I use same func to control my UI isEnabled
-            moButton.isEnabled = false
-            yipButton.isEnabled = false
-            speakButton.isEnabled = false
+
+            toggleUIEnabledTo(enabled: false)       // I use same func to control my UI isEnabled
+
             rightButton.setTitle("Scan", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 60, height: 30))
             rightButton.addTarget(self, action: #selector(self.scanButtonPressed), for: .touchUpInside)
         } else {
             // This means we're connected
-            isConnected = true
-            sleepSwitch.isEnabled = true
-            helloButton.isEnabled = true
-            moButton.isEnabled = true
-            yipButton.isEnabled = true
-            speakButton.isEnabled = true
+
+            toggleUIEnabledTo(enabled: true)
+
             rightButton.setTitle("Disconnect", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30))
@@ -167,6 +186,12 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @IBAction func yipButtonPressed(_ sender: Any) {
         sendBTLEDataMessageToArduino(message: "Yip")
     }
+
+    @IBAction func huhButtonPressed(_ sender: Any) {
+        sendBTLEDataMessageToArduino(message: "Huh")
+    }
+
+
 
     @IBAction func speakButtonPressed(_ sender: Any) {
         sendBTLEDataMessageToArduino(message: "speak")
@@ -403,11 +428,11 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     func playInAppSound(number: Int) {
 
-        if(number == 1) {
-            guard let url = Bundle.main.url(forResource: "simpleBeep", withExtension: "wav") else {
-                 print("error to get the audio file")
-                 return
-            }
+        if(number == 1) {       // this condition is temporarily disabled.
+//            guard let url = Bundle.main.url(forResource: "simpleBeep", withExtension: "wav") else {
+//                 print("error to get the audio file")
+//                 return
+//            }
 //            player = AVPlayer(url: url)
         } else if (number == 2) {
             guard let url = Bundle.main.url(forResource: "simpleBeep2", withExtension: "wav") else {
@@ -418,6 +443,19 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         }
 
         player?.play()
+    }
+
+    func toggleUIEnabledTo(enabled: Bool) {
+        isConnected = enabled
+        sleepSwitch.isEnabled = enabled
+        helloButton.isEnabled = enabled
+        moButton.isEnabled = enabled
+        yipButton.isEnabled = enabled
+        huhButton.isEnabled = enabled
+        speakButton.isEnabled = enabled
+        dirtScanButton.isEnabled = enabled
+        contaminantButton.isEnabled = enabled
+        allCleanButton.isEnabled = enabled
     }
 }
 
