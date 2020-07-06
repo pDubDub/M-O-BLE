@@ -63,37 +63,15 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         customiseNavigationBar()
         // from tutorial. controls scan/disconnect menu buttons
 
-        helloButton.layer.borderWidth = 1                  // setting my custom button style
-        helloButton.layer.cornerRadius = 10
-        helloButton.layer.borderColor = UIColor.gray.cgColor
-
-        moButton.layer.borderWidth = 1
-        moButton.layer.cornerRadius = 10
-        moButton.layer.borderColor = UIColor.gray.cgColor
-
-        yipButton.layer.borderWidth = 1
-        yipButton.layer.cornerRadius = 10
-        yipButton.layer.borderColor = UIColor.gray.cgColor
-
-        huhButton.layer.borderWidth = 1
-        huhButton.layer.cornerRadius = 10
-        huhButton.layer.borderColor = UIColor.gray.cgColor
-
-        speakButton.layer.borderWidth = 1
-        speakButton.layer.cornerRadius = 10
-        speakButton.layer.borderColor = UIColor.gray.cgColor
-
-        dirtScanButton.layer.borderWidth = 1
-        dirtScanButton.layer.cornerRadius = 10
-        dirtScanButton.layer.borderColor = UIColor.gray.cgColor
-
-        contaminantButton.layer.borderWidth = 1
-        contaminantButton.layer.cornerRadius = 10
-        contaminantButton.layer.borderColor = UIColor.gray.cgColor
-
-        allCleanButton.layer.borderWidth = 1
-        allCleanButton.layer.cornerRadius = 10
-        allCleanButton.layer.borderColor = UIColor.gray.cgColor
+        customiseMyButton(button: helloButton)          // setting my custom button style
+        customiseMyButton(button: moButton)
+        customiseMyButton(button: yipButton)
+        customiseMyButton(button: huhButton)
+        customiseMyButton(button: speakButton)
+        customiseMyButton(button: dirtScanButton)
+        customiseMyButton(button: contaminantButton)
+        customiseMyButton(button: allCleanButton)
+        // I think there may be an even easier way to do this, like looping through all subviews of type UIButton.
     }
 
     func customiseNavigationBar () {
@@ -456,6 +434,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         dirtScanButton.isEnabled = enabled
         contaminantButton.isEnabled = enabled
         allCleanButton.isEnabled = enabled
+        sliderOne.isEnabled = enabled
+    }
+
+    func customiseMyButton(button: UIButton) {
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 10
+        button.layer.borderColor = UIColor.gray.cgColor
     }
 }
 
