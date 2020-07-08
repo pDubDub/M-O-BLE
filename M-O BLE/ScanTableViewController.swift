@@ -31,7 +31,7 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        // return the number of rows equal to number of peripherals in array
         return peripherals.count
     }
 
@@ -40,7 +40,12 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "scanTableCell", for: indexPath)
         let peripheral = peripherals[indexPath.row]
         cell.textLabel?.text = peripheral.name
-
+        if (peripheral.name == "M-O") {
+            print("Found M-O!")
+            // pw: this is just me experimenting to see if I can detect M-O. I hope to one day make the app auto-connect.
+            //   I'm wondering if this is the wrong place to do this. Will it print() every time it builds the table.
+            //   If so, I really want to build an action that occurs only when we scan.
+        }
         return cell
     }
 

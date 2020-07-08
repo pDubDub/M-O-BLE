@@ -63,14 +63,14 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         customiseNavigationBar()
         // from tutorial. controls scan/disconnect menu buttons
 
-        customiseMyButton(button: helloButton)          // setting my custom button style
-        customiseMyButton(button: moButton)
-        customiseMyButton(button: yipButton)
-        customiseMyButton(button: huhButton)
-        customiseMyButton(button: speakButton)
-        customiseMyButton(button: dirtScanButton)
-        customiseMyButton(button: contaminantButton)
-        customiseMyButton(button: allCleanButton)
+        customiseLookOf(helloButton)          // setting my custom button style
+        customiseLookOf(moButton)
+        customiseLookOf(yipButton)
+        customiseLookOf(huhButton)
+        customiseLookOf(speakButton)
+        customiseLookOf(dirtScanButton)
+        customiseLookOf(contaminantButton)
+        customiseLookOf(allCleanButton)
         // I think there may be an even easier way to do this, like looping through all subviews of type UIButton.
     }
 
@@ -84,7 +84,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         if (mainPeripheral == nil) {
             // This means we're not connected
 
-            toggleUIEnabledTo(enabled: false)       // I use same func to control my UI isEnabled
+            toggleUIEnabled(to: false)       // I use same func to control my UI isEnabled
 
             rightButton.setTitle("Scan", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
@@ -93,7 +93,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         } else {
             // This means we're connected
 
-            toggleUIEnabledTo(enabled: true)
+            toggleUIEnabled(to: true)
 
             rightButton.setTitle("Disconnect", for: [])
             rightButton.setTitleColor(UIColor.blue, for: [])
@@ -169,16 +169,38 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         sendBTLEDataMessageToArduino(message: "Huh")
     }
 
-
-
     @IBAction func speakButtonPressed(_ sender: Any) {
         sendBTLEDataMessageToArduino(message: "speak")
     }
 
+    @IBAction func dirtScanButtonPressed(_ sender: Any) {               // note: can't use "scanButtonPressed" as that is already used for BTLE scan
+        sendBTLEDataMessageToArduino(message: "scan")
+    }
+
+    @IBAction func dirtyButtonPressed(_ sender: Any) {
+        sendBTLEDataMessageToArduino(message: "dirty")
+    }
+
+    // TODO - there should likely be a "whoa" button of some kind here that triggers the whole 100% contaminant animation sequence
+
+    @IBAction func sirenSwitchChanged(_ sender: Any) {
+        if (sirenSwitch.isOn) {
+            sendBTLEDataMessageToArduino(message: "siren:1")
+        } else {
+            sendBTLEDataMessageToArduino(message: "siren:0")
+        }
+    }
+
+
+    @IBAction func allCleanButtonPressed(_ sender: Any) {
+        sendBTLEDataMessageToArduino(message: "clean")
+    }
+
+
     // pw: Here I implement a timer dalay system, so bluetooth commands are separated by 0.5 seconds. Sending messages than that were found to confuse or even crash the Arduino.
     @IBAction func sliderOneChanged(_ sender: Any) {
         if timerIsRunning {
-            print("changed dumped 'cause a timer is running")
+            print("change dumped 'cause a timer is running")
         } else {
             print("\n starting timer")
             timerIsRunning = true
@@ -423,24 +445,26 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         player?.play()
     }
 
-    func toggleUIEnabledTo(enabled: Bool) {
-        isConnected = enabled
-        sleepSwitch.isEnabled = enabled
-        helloButton.isEnabled = enabled
-        moButton.isEnabled = enabled
-        yipButton.isEnabled = enabled
-        huhButton.isEnabled = enabled
-        speakButton.isEnabled = enabled
-        dirtScanButton.isEnabled = enabled
-        contaminantButton.isEnabled = enabled
-        allCleanButton.isEnabled = enabled
-        sliderOne.isEnabled = enabled
+    func toggleUIEnabled(to isEnabled: Bool) {
+        isConnected = isEnabled
+        sleepSwitch.isEnabled = isEnabled
+        helloButton.isEnabled = isEnabled
+        moButton.isEnabled = isEnabled
+        yipButton.isEnabled = isEnabled
+        huhButton.isEnabled = isEnabled
+        speakButton.isEnabled = isEnabled
+        dirtScanButton.isEnabled = isEnabled
+        contaminantButton.isEnabled = isEnabled
+        allCleanButton.isEnabled = isEnabled
+        sliderOne.isEnabled = isEnabled
     }
 
-    func customiseMyButton(button: UIButton) {
+    func customiseLookOf(_ button: UIButton) {
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 10
         button.layer.borderColor = UIColor.gray.cgColor
+
+        // maybe what I really do is make a new button class that inherits from UIButton but adds these properties?
     }
 }
 
