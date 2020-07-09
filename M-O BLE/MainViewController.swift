@@ -44,6 +44,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     @IBOutlet weak var dirtScanButton: UIButton!
     @IBOutlet weak var contaminantButton: UIButton!
+    @IBOutlet weak var reallyDirtyButton: UIButton!
+
     @IBOutlet weak var sirenLabel: UILabel!
     @IBOutlet weak var sirenSwitch: UISwitch!
     @IBOutlet weak var allCleanButton: UIButton!
@@ -70,6 +72,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         customiseLookOf(speakButton)
         customiseLookOf(dirtScanButton)
         customiseLookOf(contaminantButton)
+        customiseLookOf(reallyDirtyButton)
         customiseLookOf(allCleanButton)
         // I think there may be an even easier way to do this, like looping through all subviews of type UIButton.
     }
@@ -181,7 +184,9 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         sendBTLEDataMessageToArduino(message: "dirty")
     }
 
-    // TODO - there should likely be a "whoa" button of some kind here that triggers the whole 100% contaminant animation sequence
+    @IBAction func reallyDirtyButtonPressed(_ sender: Any) {
+        sendBTLEDataMessageToArduino(message: "whoa")
+    }
 
     @IBAction func sirenSwitchChanged(_ sender: Any) {
         if (sirenSwitch.isOn) {
@@ -455,6 +460,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         speakButton.isEnabled = isEnabled
         dirtScanButton.isEnabled = isEnabled
         contaminantButton.isEnabled = isEnabled
+        reallyDirtyButton.isEnabled = isEnabled
         allCleanButton.isEnabled = isEnabled
         sliderOne.isEnabled = isEnabled
     }
