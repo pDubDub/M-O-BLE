@@ -20,6 +20,7 @@
 		0DC5DE0A2474CDA0002F8696 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC5DE092474CDA0002F8696 /* CoreBluetooth.framework */; };
 		0DC5DE0C2474CDE6002F8696 /* ScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */; };
 		0DC6DFE4249048F3001BF092 /* EurostileExtended.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DC6DFE3249048F3001BF092 /* EurostileExtended.ttf */; };
+		0DCDCCA024BD1EA70061FB05 /* View+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDCC9F24BD1EA70061FB05 /* View+Borders.swift */; };
 		0DDFD4962485B4BC00468D12 /* Handel Gothic Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		0DC5DE092474CDA0002F8696 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTableViewController.swift; sourceTree = "<group>"; };
 		0DC6DFE3249048F3001BF092 /* EurostileExtended.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EurostileExtended.ttf; sourceTree = "<group>"; };
+		0DCDCC9F24BD1EA70061FB05 /* View+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Borders.swift"; sourceTree = "<group>"; };
 		0DDFD4952485B4BC00468D12 /* Handel Gothic Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handel Gothic Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 				0DC5DDF82474CD21002F8696 /* MainViewController.swift */,
 				0DC5DE0B2474CDE6002F8696 /* ScanTableViewController.swift */,
 				0DC5DDFA2474CD21002F8696 /* Main.storyboard */,
+				0DCDCC9F24BD1EA70061FB05 /* View+Borders.swift */,
 				0DC5DDFD2474CD22002F8696 /* Assets.xcassets */,
 				0D3340F6247D925400CB7469 /* Sounds */,
 				0DDFD4942485B48900468D12 /* Fonts */,
@@ -194,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DC5DE0C2474CDE6002F8696 /* ScanTableViewController.swift in Sources */,
+				0DCDCCA024BD1EA70061FB05 /* View+Borders.swift in Sources */,
 				0DC5DDF92474CD21002F8696 /* MainViewController.swift in Sources */,
 				0DC5DDF52474CD21002F8696 /* AppDelegate.swift in Sources */,
 				0DC5DDF72474CD21002F8696 /* SceneDelegate.swift in Sources */,

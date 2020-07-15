@@ -32,6 +32,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     // outlets for accessing UI elements
     @IBOutlet weak var moIcon: UIImageView!
+    @IBOutlet weak var arrowIcon: UILabel!
     @IBOutlet weak var helloButton: UIButton!
     @IBOutlet weak var sleepLabel: UILabel!
     @IBOutlet weak var sleepSwitch: UISwitch!
@@ -53,6 +54,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @IBOutlet weak var sliderOne: UISlider!
     @IBOutlet weak var sliderTwo: UISlider!
 
+    @IBOutlet weak var oneSegmentedControl: UISegmentedControl!
     @IBOutlet weak var recievedMessageText: UILabel!
 
     var player: AVPlayer?                                   // for playing interface sounds (beeps)
@@ -65,16 +67,37 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         customiseNavigationBar()
         // from tutorial. controls scan/disconnect menu buttons
 
-        customiseLookOf(helloButton)          // setting my custom button style
-        customiseLookOf(moButton)
-        customiseLookOf(yipButton)
-        customiseLookOf(huhButton)
-        customiseLookOf(speakButton)
+//        customiseLookOf(helloButton)          // setting my custom button style
+//        customiseLookOf(moButton)
+//        customiseLookOf(yipButton)
+//        customiseLookOf(huhButton)
+//        customiseLookOf(speakButton)
         customiseLookOf(dirtScanButton)
         customiseLookOf(contaminantButton)
         customiseLookOf(reallyDirtyButton)
         customiseLookOf(allCleanButton)
         // I think there may be an even easier way to do this, like looping through all subviews of type UIButton.
+
+//        for family in UIFont.familyNames.sorted() {                       // this code was used to find actual font name below
+//            let names = UIFont.fontNames(forFamilyName: family)
+//            print("Family: \(family) Font names: \(names)")
+//        }
+
+        // changing font style of segmented control
+        let font = UIFont.init(name: "HandelGothic", size: 14)
+        oneSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: font!], for: .normal)
+        // changing text color of selected segmented control segment
+        oneSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: UIControl.State.selected)
+
+        // attempting to set nav bar color (eventually to black) - none work
+        // UINavigationBar.appearance().backgroundColor = UIColor.green
+//        UINavigationBar.appearance().barTintColor = .black
+//        UINavigationBar.appearance().isTranslucent = true
+        self.navigationController?.navigationBar.barTintColor = .black      // this works! Found it myself throught documentation too!
+
+        // TODO - bar is still slightly visible. Might be the translucent property
+        // - maybe there is a background tint = none option.
+        
     }
 
     func customiseNavigationBar () {
@@ -90,7 +113,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             toggleUIEnabled(to: false)       // I use same func to control my UI isEnabled
 
             rightButton.setTitle("Scan", for: [])
-            rightButton.setTitleColor(UIColor.blue, for: [])
+            rightButton.setTitleColor(UIColor.yellow, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 60, height: 30))
             rightButton.addTarget(self, action: #selector(self.scanButtonPressed), for: .touchUpInside)
         } else {
@@ -99,7 +122,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             toggleUIEnabled(to: true)
 
             rightButton.setTitle("Disconnect", for: [])
-            rightButton.setTitleColor(UIColor.blue, for: [])
+            rightButton.setTitleColor(UIColor.red, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30))
             rightButton.addTarget(self, action: #selector(self.disconnectButtonPressed), for: .touchUpInside)
         }
@@ -191,8 +214,10 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @IBAction func sirenSwitchChanged(_ sender: Any) {
         if (sirenSwitch.isOn) {
             sendBTLEDataMessageToArduino(message: "siren:1")
+            toggleUIEnabled(to: true)                          // temp for testing UI
         } else {
             sendBTLEDataMessageToArduino(message: "siren:0")
+            toggleUIEnabled(to: false)                          // temp for testing UI
         }
     }
 
@@ -451,8 +476,10 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
 
     func toggleUIEnabled(to isEnabled: Bool) {
+        arrowIcon.isHidden = isEnabled                      // I don't know if this is the correct location.
         isConnected = isEnabled
         sleepSwitch.isEnabled = isEnabled
+        oneSegmentedControl.isEnabled = isEnabled
         helloButton.isEnabled = isEnabled
         moButton.isEnabled = isEnabled
         yipButton.isEnabled = isEnabled
@@ -463,12 +490,28 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         reallyDirtyButton.isEnabled = isEnabled
         allCleanButton.isEnabled = isEnabled
         sliderOne.isEnabled = isEnabled
+
+        // this should probably be in a function that accepts a button
+        if isEnabled {
+            helloButton.alpha = 1.0
+            moButton.alpha = 1.0
+            yipButton.alpha = 1.0
+            huhButton.alpha = 1.0
+            speakButton.alpha = 1.0
+        } else {
+            helloButton.alpha = 0.5
+            moButton.alpha = 0.5
+            yipButton.alpha = 0.5
+            huhButton.alpha = 0.5
+            speakButton.alpha = 0.5
+        }
     }
 
     func customiseLookOf(_ button: UIButton) {
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.gray.cgColor
+//        button.layer.borderWidth = 2
+//        button.layer.cornerRadius = 8
+//        let axiomLightBlue: UIColor = UIColor(red: 90, green: 140, blue: 240, alpha: 0.5)
+//        button.layer.borderColor = UIColor(red: 90, green: 140, blue: 240, alpha: 1).cgColor
 
         // maybe what I really do is make a new button class that inherits from UIButton but adds these properties?
     }
