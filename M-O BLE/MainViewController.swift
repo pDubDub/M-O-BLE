@@ -55,6 +55,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     @IBOutlet weak var sliderTwo: UISlider!
 
     @IBOutlet weak var oneSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var messageHeadingLabel: UILabel!
     @IBOutlet weak var recievedMessageText: UILabel!
 
     var player: AVPlayer?                                   // for playing interface sounds (beeps)
@@ -102,6 +103,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     func customiseNavigationBar () {
         // tutorial method for scan/disconnect menu bar button
+        // I'm also using this to trigger UI changes on Connect/Disconnect
 
         self.navigationItem.rightBarButtonItem = nil
 
@@ -111,6 +113,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             // This means we're not connected
 
             toggleUIEnabled(to: false)       // I use same func to control my UI isEnabled
+            messageHeadingLabel.text = "* Not Connected *"
+            recievedMessageText.text = "--"
 
             rightButton.setTitle("Scan", for: [])
             rightButton.setTitleColor(UIColor.yellow, for: [])
@@ -120,6 +124,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             // This means we're connected
 
             toggleUIEnabled(to: true)
+            messageHeadingLabel.text = "Incoming Messsge:"
+            recievedMessageText.text = "  "
 
             rightButton.setTitle("Disconnect", for: [])
             rightButton.setTitleColor(UIColor.red, for: [])
@@ -312,7 +318,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         mainPeripheral = nil
         customiseNavigationBar()
         print("Disconnected from " + peripheral.name!)
-        recievedMessageText.text = "*not connected*"
+//        recievedMessageText.text = r"--"
     }
 
     // not using here, but required
@@ -517,3 +523,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
 }
 
+// I think the slider logic could be redone.
+//
+// In short, any time sliderValueChanged() we want to send slider.value.
+//
+// The exception is, if we have already sent in the last .5 seconds, we should not send.
+//
+// BUT we want to make sure we follow through and send slider.value again 0.5 seconds after the last send,
+// whenever sliderValue stops changing.
+//
+// Is this correct?

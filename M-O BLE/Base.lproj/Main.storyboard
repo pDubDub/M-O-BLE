@@ -83,17 +83,17 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.25" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BnL_mono" translatesAutoresizingMaskIntoConstraints="NO" id="0BC-B9-KpB">
-                                <rect key="frame" x="0.0" y="581" width="375" height="28"/>
+                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BnL_invert" translatesAutoresizingMaskIntoConstraints="NO" id="0BC-B9-KpB">
+                                <rect key="frame" x="0.0" y="579" width="375" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="5VL-r8-Sg6"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqP-1W-rOr">
-                                <rect key="frame" x="0.0" y="619" width="375" height="48"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qvr-FX-pGq">
-                                        <rect key="frame" x="94" y="8" width="187" height="32"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Qvr-FX-pGq">
+                                        <rect key="frame" x="94" y="8" width="187" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Received:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbG-zc-tBL">
                                                 <rect key="frame" x="0.0" y="0.0" width="187" height="16"/>
@@ -102,7 +102,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfY-k9-NDG">
-                                                <rect key="frame" x="84.5" y="16" width="18.5" height="16"/>
+                                                <rect key="frame" x="84.5" y="18" width="18.5" height="16"/>
                                                 <fontDescription key="fontDescription" name="EurostileExtended-Roman" family="Eurostile Extended" pointSize="16"/>
                                                 <color key="textColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -126,7 +126,7 @@
                                 </segments>
                             </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mg2-UK-Z6c">
-                                <rect key="frame" x="16" y="252" width="343" height="309"/>
+                                <rect key="frame" x="16" y="252" width="343" height="307"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="MRG-lp-xWu">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="162"/>
@@ -360,6 +360,7 @@
                         <outlet property="dirtScanButton" destination="pXR-ON-r7e" id="tz9-V0-fDu"/>
                         <outlet property="helloButton" destination="Elk-aV-4MG" id="fWw-rw-zBK"/>
                         <outlet property="huhButton" destination="LUf-lF-i9u" id="rIH-rt-1oZ"/>
+                        <outlet property="messageHeadingLabel" destination="GbG-zc-tBL" id="hzh-1O-9Me"/>
                         <outlet property="moButton" destination="omf-4Q-FZ9" id="fY7-Xp-NCE"/>
                         <outlet property="moIcon" destination="IW7-b6-oKr" id="Apy-Zo-Y0p"/>
                         <outlet property="oneSegmentedControl" destination="Tii-Dh-wdy" id="IyT-t9-SOF"/>
@@ -428,7 +429,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BnL_mono" width="375" height="300"/>
+        <image name="BnL_invert" width="375" height="300"/>
         <image name="MO_onscreen_OFF" width="500" height="540"/>
     </resources>
 </document>
