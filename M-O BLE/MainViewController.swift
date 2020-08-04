@@ -65,8 +65,12 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
         manager = CBCentralManager(delegate: self, queue: nil);
 
-        customiseNavigationBar()
         // from tutorial. controls scan/disconnect menu buttons
+        customiseNavigationBar()
+
+        // removes the navigation bar background
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 
 //        customiseLookOf(helloButton)          // setting my custom button style
 //        customiseLookOf(moButton)
