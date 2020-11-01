@@ -124,6 +124,9 @@
                                     <segment title="Ready"/>
                                     <segment title="Active"/>
                                 </segments>
+                                <connections>
+                                    <action selector="stateSegmentControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ox2-dS-EFh"/>
+                                </connections>
                             </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mg2-UK-Z6c">
                                 <rect key="frame" x="16" y="252" width="343" height="307"/>

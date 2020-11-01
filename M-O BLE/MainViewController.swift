@@ -156,6 +156,32 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
 
     // MARK: UI Methods
+
+    @IBAction func stateSegmentControlChanged(_ sender: Any) {
+
+        // TODO - list here what three actual commands that the Arduino wants are.
+        //      Will it be ready:0, ready:1 and ready:2 ??
+        /*
+                Thinking about it more, this control should not even be active unless MO "isReady"
+
+         */
+
+        switch oneSegmentedControl.selectedSegmentIndex {
+            case 0:
+                print("Sleep mode selected")
+                sendBTLEDataMessageToArduino(message: "ready:1")
+            case 1:
+                print("Ready mode selected")
+                sendBTLEDataMessageToArduino(message: "ready:2")
+            case 2:
+                print("Active state selected")
+                sendBTLEDataMessageToArduino(message: "ready:3")
+            default:
+                break
+        }
+    }
+
+
     @objc func scanButtonPressed() {
         performSegue(withIdentifier: "scan-segue", sender: nil)
     }
@@ -166,21 +192,39 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
 
     @IBAction func switchChanged(_ sender: UISwitch) {
+        // this is the old switch, which I'm replacing with the segmented control
+
+        // note, I don't think it's correct that I've been enabling the UI here. Instead, it should just send the message, and the response from MO-Arduino should be the thing that activated the UI
+
 //        var switchMessage = ""
         if (sleepSwitch.isOn) {
 //            stringForArduino = "wake"
             sendBTLEDataMessageToArduino(message: "wake")
-            moIcon.image = UIImage(named: "MO_onscreen_ON")
-            sleepLabel.textColor = UIColor.lightGray
-            readyLabel.textColor = UIColor.black
+//            moIcon.image = UIImage(named: "MO_onscreen_ON")
+//            sleepLabel.textColor = UIColor.lightGray
+//            readyLabel.textColor = UIColor.black
+            wakeTheUI()
         } else {
 //            stringForArduino = "sleep"
             sendBTLEDataMessageToArduino(message: "sleep")
-            moIcon.image = UIImage(named: "MO_onscreen_OFF")
-            sleepLabel.textColor = UIColor.black
-            readyLabel.textColor = UIColor.lightGray
+//            moIcon.image = UIImage(named: "MO_onscreen_OFF")
+//            sleepLabel.textColor = UIColor.black
+//            readyLabel.textColor = UIColor.lightGray
+            sleepTheUI()
         }
 //        sendBTLEDataMessageToArduino()
+    }
+
+    func wakeTheUI() {
+        moIcon.image = UIImage(named: "MO_onscreen_ON")
+        sleepLabel.textColor = UIColor.lightGray
+        readyLabel.textColor = UIColor.black
+    }
+
+    func sleepTheUI(){
+        moIcon.image = UIImage(named: "MO_onscreen_OFF")
+        sleepLabel.textColor = UIColor.black
+        readyLabel.textColor = UIColor.lightGray
     }
     
     // action when button1 is pressed
@@ -436,18 +480,20 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 print("MO says \"not isAwake\"")
                 recievedMessageText.text = "MO says he's sleeping"
                 // these image and such commands seem to duplicate above
-                moIcon.image = UIImage(named: "MO_onscreen_OFF")
+//                moIcon.image = UIImage(named: "MO_onscreen_OFF")
                 sleepSwitch.isOn = false
-                sleepLabel.textColor = UIColor.black
-                readyLabel.textColor = UIColor.lightGray
+//                sleepLabel.textColor = UIColor.black
+//                readyLabel.textColor = UIColor.lightGray
+                sleepTheUI()
             } else {
                 // react to isAwake
                 print("MO says \"isAwake\"")
                 recievedMessageText.text = "MO says he's awake"
-                moIcon.image = UIImage(named: "MO_onscreen_ON")
+//                moIcon.image = UIImage(named: "MO_onscreen_ON")
                 sleepSwitch.isOn = true
-                sleepLabel.textColor = UIColor.lightGray
-                readyLabel.textColor = UIColor.black
+//                sleepLabel.textColor = UIColor.lightGray
+//                readyLabel.textColor = UIColor.black
+                wakeTheUI()
             }
         } else if (message.starts(with: "ready")) {                   // this is my model for new message format
             if (message.contains("0")) {

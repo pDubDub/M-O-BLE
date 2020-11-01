@@ -36,7 +36,7 @@ class ScanTableViewController: UITableViewController, CBCentralManagerDelegate {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "   Select MO's BTLE signal."
+        return "       Select MO's BTLE signal:"
     }
 
 
