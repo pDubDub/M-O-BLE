@@ -121,7 +121,7 @@
                                 <rect key="frame" x="16" y="211" width="343" height="32"/>
                                 <segments>
                                     <segment title="Sleep"/>
-                                    <segment title="Ready"/>
+                                    <segment title="Idle"/>
                                     <segment title="Active"/>
                                 </segments>
                                 <connections>

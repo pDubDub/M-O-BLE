@@ -169,13 +169,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         switch oneSegmentedControl.selectedSegmentIndex {
             case 0:
                 print("Sleep mode selected")
-                sendBTLEDataMessageToArduino(message: "ready:1")
+                sendBTLEDataMessageToArduino(message: "goSleep")        // was ready:1
             case 1:
                 print("Ready mode selected")
-                sendBTLEDataMessageToArduino(message: "ready:2")
+                sendBTLEDataMessageToArduino(message: "goIdle")       // ready:2
             case 2:
                 print("Active state selected")
-                sendBTLEDataMessageToArduino(message: "ready:3")
+                sendBTLEDataMessageToArduino(message: "goActiv")        // ready:3
             default:
                 break
         }
@@ -474,6 +474,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
     func reactToBTMessage(message: String) {
         print(message)
+        // TODO - should change the order of these statements, so ready comes before awake
         if (message.starts(with: "awake")) {
             if (message.contains("0")) {
                 // react to !isAwake
@@ -482,6 +483,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 // these image and such commands seem to duplicate above
 //                moIcon.image = UIImage(named: "MO_onscreen_OFF")
                 sleepSwitch.isOn = false
+                oneSegmentedControl.selectedSegmentIndex = 0
 //                sleepLabel.textColor = UIColor.black
 //                readyLabel.textColor = UIColor.lightGray
                 sleepTheUI()
@@ -491,6 +493,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 recievedMessageText.text = "MO says he's awake"
 //                moIcon.image = UIImage(named: "MO_onscreen_ON")
                 sleepSwitch.isOn = true
+                oneSegmentedControl.selectedSegmentIndex = 1
 //                sleepLabel.textColor = UIColor.lightGray
 //                readyLabel.textColor = UIColor.black
                 wakeTheUI()
@@ -500,6 +503,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 // react to !isReady
             } else {
                 // react to isReady
+                // TODO - should set the segmented control based on ready:1, vs ready:2 or ready:3
+
                 print("MO says \"isReady\"")
                 recievedMessageText.text = "Microbe Obliterator Ready"
             }
