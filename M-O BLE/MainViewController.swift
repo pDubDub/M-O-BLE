@@ -12,12 +12,17 @@ import AVFoundation
 
 class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
 
+    let buttonBlue = UIColor(red: 0.215, green: 0.388, blue: 0.866, alpha: 1)
+
     var manager:CBCentralManager? = nil                     // core bluetooth
     var mainPeripheral:CBPeripheral? = nil
     var mainCharacteristic:CBCharacteristic? = nil
 
-    var isConnected:Bool = false                            // my state variable, but I don't think I use it (yet?)
     var stringForArduino:String = ""
+
+    var botIsConnected:Bool = false                            // my state variable
+    var botIsReady: Bool = false
+    var botIsAwake: Bool = false
 
     var timerIsDone:Bool = true                             // might not be used anymore
     var timerIsRunning:Bool = false
@@ -33,7 +38,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     // outlets for accessing UI elements
     @IBOutlet weak var moIcon: UIImageView!
     @IBOutlet weak var arrowIcon: UILabel!
-    @IBOutlet weak var helloButton: UIButton!
+    @IBOutlet weak var testButton: UIButton!
     @IBOutlet weak var sleepLabel: UILabel!
     @IBOutlet weak var sleepSwitch: UISwitch!
     @IBOutlet weak var readyLabel: UILabel!
@@ -102,7 +107,14 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
         // TODO - bar is still slightly visible. Might be the translucent property
         // - maybe there is a background tint = none option.
-        
+
+        // setting the UI to startup conditions
+        updateUIOnConnection(to: false)
+
+        readyLabel.textColor = UIColor.red
+        readyLabel.text = "NOT READY"
+
+        updateUIOnSleep(to: true)
     }
 
     func customiseNavigationBar () {
@@ -114,9 +126,9 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         let rightButton = UIButton()
 
         if (mainPeripheral == nil) {
-            // This means we're not connected
+            // This means we have disconnected
 
-            toggleUIEnabled(to: false)       // I use same func to control my UI isEnabled
+            arrowIcon.isHidden = false
             messageHeadingLabel.text = "* Not Connected *"
             recievedMessageText.text = "--"
 
@@ -125,9 +137,9 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 60, height: 30))
             rightButton.addTarget(self, action: #selector(self.scanButtonPressed), for: .touchUpInside)
         } else {
-            // This means we're connected
+            // This means we have attempted to connect
 
-            toggleUIEnabled(to: true)
+            arrowIcon.isHidden = true
             messageHeadingLabel.text = "Incoming Messsge:"
             recievedMessageText.text = "  "
 
@@ -158,13 +170,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     // MARK: UI Methods
 
     @IBAction func stateSegmentControlChanged(_ sender: Any) {
-
-        // TODO - list here what three actual commands that the Arduino wants are.
-        //      Will it be ready:0, ready:1 and ready:2 ??
-        /*
-                Thinking about it more, this control should not even be active unless MO "isReady"
-
-         */
+        // Arduino wants to hear "goSleep", "goIdle" or "goActiv"
 
         switch oneSegmentedControl.selectedSegmentIndex {
             case 0:
@@ -191,44 +197,34 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         manager?.cancelPeripheralConnection(mainPeripheral!)
     }
 
-    @IBAction func switchChanged(_ sender: UISwitch) {
-        // this is the old switch, which I'm replacing with the segmented control
+    // TODO - delete this switch, its references and its method
+//    @IBAction func switchChanged(_ sender: UISwitch) {
+//        // this is the old switch, which I'm replacing with the segmented control
+//
+//        // note, I don't think it's correct that I've been enabling the UI here. Instead, it should just send the message, and the response from MO-Arduino should be the thing that activated the UI
+//
+////        var switchMessage = ""
+//        if (sleepSwitch.isOn) {
+////            stringForArduino = "wake"
+//            sendBTLEDataMessageToArduino(message: "wake")
+////            moIcon.image = UIImage(named: "MO_onscreen_ON")
+////            sleepLabel.textColor = UIColor.lightGray
+////            readyLabel.textColor = UIColor.black
+//            wakeTheUI()
+//        } else {
+////            stringForArduino = "sleep"
+//            sendBTLEDataMessageToArduino(message: "sleep")
+////            moIcon.image = UIImage(named: "MO_onscreen_OFF")
+////            sleepLabel.textColor = UIColor.black
+////            readyLabel.textColor = UIColor.lightGray
+//            sleepTheUI()
+//        }
+////        sendBTLEDataMessageToArduino()
+//    }
 
-        // note, I don't think it's correct that I've been enabling the UI here. Instead, it should just send the message, and the response from MO-Arduino should be the thing that activated the UI
 
-//        var switchMessage = ""
-        if (sleepSwitch.isOn) {
-//            stringForArduino = "wake"
-            sendBTLEDataMessageToArduino(message: "wake")
-//            moIcon.image = UIImage(named: "MO_onscreen_ON")
-//            sleepLabel.textColor = UIColor.lightGray
-//            readyLabel.textColor = UIColor.black
-            wakeTheUI()
-        } else {
-//            stringForArduino = "sleep"
-            sendBTLEDataMessageToArduino(message: "sleep")
-//            moIcon.image = UIImage(named: "MO_onscreen_OFF")
-//            sleepLabel.textColor = UIColor.black
-//            readyLabel.textColor = UIColor.lightGray
-            sleepTheUI()
-        }
-//        sendBTLEDataMessageToArduino()
-    }
-
-    func wakeTheUI() {
-        moIcon.image = UIImage(named: "MO_onscreen_ON")
-        sleepLabel.textColor = UIColor.lightGray
-        readyLabel.textColor = UIColor.black
-    }
-
-    func sleepTheUI(){
-        moIcon.image = UIImage(named: "MO_onscreen_OFF")
-        sleepLabel.textColor = UIColor.black
-        readyLabel.textColor = UIColor.lightGray
-    }
-    
     // action when button1 is pressed
-    @IBAction func helloButtonPressed(_ sender: Any) {
+    @IBAction func testButtonPressed(_ sender: Any) {
         // button used to assign variables, convert string to data, and then pass data to send func.
         // now they just send a literal string, and send() func does the conversion to data itself (once, less code)
         //        stringForArduino = "Hello World!"
@@ -366,6 +362,11 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         mainPeripheral = nil
         customiseNavigationBar()
         print("Disconnected from " + peripheral.name!)
+
+        // HERE IS BEHAVIOR UPON DISCONNECTING *************************
+        botIsConnected = false
+        updateUIOnConnection(to: botIsConnected)
+        updateUIOnSleep(to: false)              // by default, we sleep all controls on disconnection
 //        recievedMessageText.text = r"--"
     }
 
@@ -473,45 +474,73 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
     }
 
     func reactToBTMessage(message: String) {
-        print(message)
-        // TODO - should change the order of these statements, so ready comes before awake
-        if (message.starts(with: "awake")) {
+        print("Message from M-O says \"\(message)\"")
+        if (message.starts(with: "M-O Connected")) {
+            print("M-O confirms BT connection!")
+
+            // HERE IS RESPONSE TO CONFIRMED CONNECTION *************************
+            botIsConnected = true
+//            updateUIOnConnection(to: botIsConnected)
+                // this is incorrect. I don't want the segmentedControl enabled if notReady.
+            testButton.isEnabled = true
+            testButton.alpha = 1.0
+                // this has desired behavior, but might not be the cleanest code
+
+            /*
+                    By default, we won't be able to connect if notReady, however, it's possible due to a failure of some kind, to go back to notReady.
+             */
+
+            // other controls should wake or sleep based on ready/awake response to follow {
+
+        } else if (message.starts(with: "ready")) {                   // this is my model for new message format
+            if (message.contains("0")) {
+                // TODO - react to not-isReady
+                /*
+                        change local bools
+                        sleep the UI
+                        disable the segmentedControl
+                        change readyLabel color to red and text to NOT READY
+                 */
+            } else if (message.contains("1")) || (message.contains("2"))  || (message.contains("3")){
+                // react to isReady
+
+                // On BT connection, iOS sends "iosOK" to which Arduino should respond "M-O Connected" then "ready:x" (and for now still, "awake:x")
+
+                updateUIOnConnection(to: true)
+                readyLabel.textColor = buttonBlue
+                readyLabel.text = "READY"
+                // TODO - should set the segmented control based on ready:1, vs ready:2 or ready:3
+                // should also updateUIOnSleep(on)
+
+                recievedMessageText.text = "Microbe Obliterator Ready"
+            }
+        } else if (message.starts(with: "awake")) {
             if (message.contains("0")) {
                 // react to !isAwake
                 print("MO says \"not isAwake\"")
                 recievedMessageText.text = "MO says he's sleeping"
                 // these image and such commands seem to duplicate above
 //                moIcon.image = UIImage(named: "MO_onscreen_OFF")
-                sleepSwitch.isOn = false
+//                sleepSwitch.isOn = false
                 oneSegmentedControl.selectedSegmentIndex = 0
 //                sleepLabel.textColor = UIColor.black
 //                readyLabel.textColor = UIColor.lightGray
                 sleepTheUI()
+                updateUIOnSleep(to: true)
             } else {
-                // react to isAwake
+                // react to isAwake:1
                 print("MO says \"isAwake\"")
                 recievedMessageText.text = "MO says he's awake"
 //                moIcon.image = UIImage(named: "MO_onscreen_ON")
-                sleepSwitch.isOn = true
-                oneSegmentedControl.selectedSegmentIndex = 1
+//                sleepSwitch.isOn = true
+                oneSegmentedControl.selectedSegmentIndex = 1            // eventually, need to set this to either 1 or 2
 //                sleepLabel.textColor = UIColor.lightGray
 //                readyLabel.textColor = UIColor.black
                 wakeTheUI()
+                updateUIOnSleep(to: false)
             }
-        } else if (message.starts(with: "ready")) {                   // this is my model for new message format
-            if (message.contains("0")) {
-                // react to !isReady
-            } else {
-                // react to isReady
-                // TODO - should set the segmented control based on ready:1, vs ready:2 or ready:3
-
-                print("MO says \"isReady\"")
-                recievedMessageText.text = "Microbe Obliterator Ready"
-            }
-        }
-
-        else {
-            print("Bluetooth connections message: \(message)")
+        } else {
+            print("Bluetooth message received: \(message)")
         }
     }
 
@@ -536,12 +565,61 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         player?.play()
     }
 
+    // MARK: - UI Methods
+
+    /* TODO - there should be four stages here:
+            1st - navigation bar changes upon connect/disconnect commands
+            2nd - enable/disable the test button and segmented control based on BT connection
+            3rd - readyLabel changes based on isReady response from M-O
+            4th - enable/disable select UI based on sleep state
+     */
+
+    func wakeTheUI() {
+        moIcon.image = UIImage(named: "MO_onscreen_ON")
+//        sleepLabel.textColor = UIColor.lightGray
+//        readyLabel.textColor = UIColor.black
+    }
+
+    func sleepTheUI(){
+        moIcon.image = UIImage(named: "MO_onscreen_OFF")
+//        sleepLabel.textColor = UIColor.black
+//        readyLabel.textColor = UIColor.lightGray
+    }
+
+    func updateUIOnConnection(to isConnected: Bool) {
+        // toggling UI elements based on BT connection
+        testButton.isEnabled = isConnected
+        testButton.alpha = isConnected ? 1.0 : 0.5
+//        arrowIcon.isHidden = isConnected
+        oneSegmentedControl.isEnabled = isConnected
+    }
+
+    func updateUIOnSleep(to isAsleep: Bool) {
+        // toggling UI elements based on sleep state or upon disconnection
+
+        if !isAsleep {
+//            testButton.alpha = 1.0
+            moButton.alpha = 1.0
+            yipButton.alpha = 1.0
+            huhButton.alpha = 1.0
+            speakButton.alpha = 1.0
+        } else {
+//            testButton.alpha = 0.5
+            moButton.alpha = 0.5
+            yipButton.alpha = 0.5
+            huhButton.alpha = 0.5
+            speakButton.alpha = 0.5
+        }
+    }
+
     func toggleUIEnabled(to isEnabled: Bool) {
-        arrowIcon.isHidden = isEnabled                      // I don't know if this is the correct location.
-        isConnected = isEnabled
-        sleepSwitch.isEnabled = isEnabled
-        oneSegmentedControl.isEnabled = isEnabled
-        helloButton.isEnabled = isEnabled
+        // this is old method, that I'm moving away from
+
+//        arrowIcon.isHidden = isEnabled                      // I don't know if this is the correct location.
+//        botIsConnected = isEnabled
+//        sleepSwitch.isEnabled = isEnabled
+//        oneSegmentedControl.isEnabled = isEnabled
+//        testButton.isEnabled = isEnabled
         moButton.isEnabled = isEnabled
         yipButton.isEnabled = isEnabled
         huhButton.isEnabled = isEnabled
@@ -554,13 +632,13 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 
         // this should probably be in a function that accepts a button
         if isEnabled {
-            helloButton.alpha = 1.0
+//            testButton.alpha = 1.0
             moButton.alpha = 1.0
             yipButton.alpha = 1.0
             huhButton.alpha = 1.0
             speakButton.alpha = 1.0
         } else {
-            helloButton.alpha = 0.5
+//            testButton.alpha = 0.5
             moButton.alpha = 0.5
             yipButton.alpha = 0.5
             huhButton.alpha = 0.5

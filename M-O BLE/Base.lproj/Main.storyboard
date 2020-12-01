@@ -54,34 +54,38 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="helloButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kjE-as-ytI"/>
+                                    <action selector="testButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kjE-as-ytI"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="center" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AGt-Pc-bta">
-                                <rect key="frame" x="103.5" y="172" width="168.5" height="31"/>
+                                <rect key="frame" x="162.5" y="172" width="50" height="14"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLEEP " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyd-Jc-5aE">
                                         <rect key="frame" x="0.0" y="0.0" width="53.5" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="14"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9xj-AQ-DaZ">
-                                        <rect key="frame" x="61.5" y="0.0" width="51" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="49" id="Su9-n9-VLY"/>
                                         </constraints>
-                                        <connections>
-                                            <action selector="switchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Khu-1S-gch"/>
-                                        </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="READY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="50" translatesAutoresizingMaskIntoConstraints="NO" id="Bph-GR-HCG">
-                                        <rect key="frame" x="118.5" y="0.0" width="50" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="14"/>
                                         <fontDescription key="fontDescription" name="HandelGothic" family="Handel Gothic" pointSize="14"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="fyd-Jc-5aE"/>
+                                        <exclude reference="9xj-AQ-DaZ"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                             <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BnL_invert" translatesAutoresizingMaskIntoConstraints="NO" id="0BC-B9-KpB">
                                 <rect key="frame" x="0.0" y="579" width="375" height="28"/>
@@ -118,7 +122,7 @@
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Tii-Dh-wdy">
-                                <rect key="frame" x="16" y="211" width="343" height="32"/>
+                                <rect key="frame" x="16" y="194" width="343" height="32"/>
                                 <segments>
                                     <segment title="Sleep"/>
                                     <segment title="Idle"/>
@@ -129,7 +133,7 @@
                                 </connections>
                             </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mg2-UK-Z6c">
-                                <rect key="frame" x="16" y="252" width="343" height="307"/>
+                                <rect key="frame" x="16" y="235" width="343" height="324"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="MRG-lp-xWu">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="162"/>
@@ -361,7 +365,6 @@
                         <outlet property="arrowIcon" destination="xUP-PT-8Lq" id="Ziy-mY-hk9"/>
                         <outlet property="contaminantButton" destination="Iam-Rz-G9T" id="hi6-VD-vHO"/>
                         <outlet property="dirtScanButton" destination="pXR-ON-r7e" id="tz9-V0-fDu"/>
-                        <outlet property="helloButton" destination="Elk-aV-4MG" id="fWw-rw-zBK"/>
                         <outlet property="huhButton" destination="LUf-lF-i9u" id="rIH-rt-1oZ"/>
                         <outlet property="messageHeadingLabel" destination="GbG-zc-tBL" id="hzh-1O-9Me"/>
                         <outlet property="moButton" destination="omf-4Q-FZ9" id="fY7-Xp-NCE"/>
@@ -372,11 +375,10 @@
                         <outlet property="recievedMessageText" destination="BfY-k9-NDG" id="Qfk-eA-v5y"/>
                         <outlet property="sirenLabel" destination="FXh-59-8qx" id="PdF-NH-ukX"/>
                         <outlet property="sirenSwitch" destination="ulS-d4-PUw" id="2wd-kY-f0O"/>
-                        <outlet property="sleepLabel" destination="fyd-Jc-5aE" id="OMH-Qx-daa"/>
-                        <outlet property="sleepSwitch" destination="9xj-AQ-DaZ" id="QWL-iI-BDg"/>
                         <outlet property="sliderOne" destination="NUe-FN-9Be" id="QRR-Tp-EZF"/>
                         <outlet property="sliderTwo" destination="5Ka-zF-78A" id="Hc2-Dz-VaL"/>
                         <outlet property="speakButton" destination="PHD-KD-JJv" id="PT5-3E-XcF"/>
+                        <outlet property="testButton" destination="Elk-aV-4MG" id="fWw-rw-zBK"/>
                         <outlet property="yipButton" destination="CXu-l5-EdW" id="fef-TZ-MOR"/>
                         <segue destination="BRN-CI-qD0" kind="show" identifier="scan-segue" id="uS4-32-PO2"/>
                     </connections>
