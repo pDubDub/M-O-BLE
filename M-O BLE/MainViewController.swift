@@ -114,7 +114,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         readyLabel.textColor = UIColor.red
         readyLabel.text = "NOT READY"
 
-        updateUIOnSleep(to: true)
+        updateUIToSleeping(to: true)
     }
 
     func customiseNavigationBar () {
@@ -147,6 +147,8 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
             rightButton.setTitleColor(UIColor.red, for: [])
             rightButton.frame = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 30))
             rightButton.addTarget(self, action: #selector(self.disconnectButtonPressed), for: .touchUpInside)
+
+
         }
 
         let rightBarButton = UIBarButtonItem()
@@ -366,7 +368,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         // HERE IS BEHAVIOR UPON DISCONNECTING *************************
         botIsConnected = false
         updateUIOnConnection(to: botIsConnected)
-        updateUIOnSleep(to: false)              // by default, we sleep all controls on disconnection
+        updateUIToSleeping(to: false)              // by default, we sleep all controls on disconnection
 //        recievedMessageText.text = r"--"
     }
 
@@ -437,7 +439,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                     print("Found AT-09 Data Characteristic")
 
                     sendBTLEDataMessageToArduino(message: "iOSOK")
-                    print("Send \"iosOK\" to Arduino")
+                    print("Sent \"iOSOK\" to Arduino")
                     // let's send a 'connected' message to Arduino, and have Arduino send a 'connection aknowledged' message back to screen
                     // Previously had this in the Else statement in the customiseNavigationBar() func above, but it crashed the app when there.
                 }
@@ -484,6 +486,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
                 // this is incorrect. I don't want the segmentedControl enabled if notReady.
             testButton.isEnabled = true
             testButton.alpha = 1.0
+            oneSegmentedControl.isEnabled = true
                 // this has desired behavior, but might not be the cleanest code
 
             /*
@@ -491,6 +494,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
              */
 
             // other controls should wake or sleep based on ready/awake response to follow {
+
 
         } else if (message.starts(with: "ready")) {                   // this is my model for new message format
             if (message.contains("0")) {
@@ -526,7 +530,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 //                sleepLabel.textColor = UIColor.black
 //                readyLabel.textColor = UIColor.lightGray
                 sleepTheUI()
-                updateUIOnSleep(to: true)
+                updateUIToSleeping(to: true)
             } else {
                 // react to isAwake:1
                 print("MO says \"isAwake\"")
@@ -537,7 +541,7 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
 //                sleepLabel.textColor = UIColor.lightGray
 //                readyLabel.textColor = UIColor.black
                 wakeTheUI()
-                updateUIOnSleep(to: false)
+                updateUIToSleeping(to: false)
             }
         } else {
             print("Bluetooth message received: \(message)")
@@ -594,8 +598,15 @@ class MainViewController: UIViewController, CBCentralManagerDelegate, CBPeripher
         oneSegmentedControl.isEnabled = isConnected
     }
 
-    func updateUIOnSleep(to isAsleep: Bool) {
+    func updateUIToSleeping(to isAsleep: Bool) {
         // toggling UI elements based on sleep state or upon disconnection
+
+
+
+        moButton.isEnabled = !isAsleep
+        yipButton.isEnabled = !isAsleep
+        huhButton.isEnabled = !isAsleep
+        speakButton.isEnabled = !isAsleep
 
         if !isAsleep {
 //            testButton.alpha = 1.0
